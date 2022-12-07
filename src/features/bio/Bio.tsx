@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BioContainer, BioDescripcion, BioImagen, BioNombre, Boton, ContenedorBotones } from "./bio.styled";
+import { BioContainer, BioDescription, BioImage, BioName, BioButton, ContainerButtons } from "./bio.styled";
 import { NombresSimpsons, INFO_SIMPSONS } from "./constants";
 
 
@@ -13,7 +13,7 @@ const Bio = () => {
 
   const crearBotones = () => {
     return Object.keys(INFO_SIMPSONS).map((nombre: string) => (
-      <Boton
+      <BioButton
         key={nombre as string}
         onClick={() => onClick(nombre as NombresSimpsons)}
         esActivo = {
@@ -23,23 +23,23 @@ const Bio = () => {
         }
       >
         {nombre}
-      </Boton>
+      </BioButton>
     ));
   };
 
   return (
     <BioContainer>
-      <ContenedorBotones>{crearBotones()}</ContenedorBotones>
+      <ContainerButtons>{crearBotones()}</ContainerButtons>
       <div>
         <div>
-          <BioImagen
+          <BioImage
             src={bioActiva.image}
             alt={bioActiva.nombre}
           />
         </div>
         <div>
-          <BioNombre>{bioActiva.nombre}</BioNombre>
-          <BioDescripcion>{bioActiva.descripcion}</BioDescripcion>
+          <BioName>{bioActiva.nombre}</BioName>
+          <BioDescription>{bioActiva.descripcion}</BioDescription>
         </div>
       </div>
     </BioContainer>
