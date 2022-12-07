@@ -4,12 +4,12 @@ import Cita from "./Cita";
 import userEvent from "@testing-library/user-event";
 
 describe("Pruebas en <Cita />", () => {
-  test("Primer mensaje sin búsqueda", async () => {
+  test("First message without searching", async () => {
     render(<Cita />);
-    const mensaje = await screen.findByText("No se encontro ninguna cita");
-    expect(mensaje).toBeInTheDocument();
+    const message = await screen.findByText("No se encontro ninguna cita");
+    expect(message).toBeInTheDocument();
   });
-  test("Mensaje de error al ingresar valor numérico", async () => {
+  test("Error message when searching numbers", async () => {
     render(<Cita />);
     const inputCharacter = screen.getByPlaceholderText(
       "Ingresa el nombre del autor"
@@ -18,12 +18,12 @@ describe("Pruebas en <Cita />", () => {
     userEvent.type(inputCharacter, "1");
     const button = await screen.findByLabelText("Obtener Cita");
     userEvent.click(button);
-    const mensaje = await screen.findByText(
+    const message = await screen.findByText(
       "Por favor ingrese un nombre válido"
     );
-    expect(mensaje).toBeInTheDocument();
+    expect(message).toBeInTheDocument();
   });
-  test("Devolver cita de personaje de forma exitosa", async () => {
+  test("Return a characters quote successfully", async () => {
     render(<Cita />);
     const mockQuote = "Nothing you say can upset us. We're the MTV generation.";
     const mockAuthor = "Bart Simpson";
@@ -36,7 +36,7 @@ describe("Pruebas en <Cita />", () => {
     expect(await screen.findByText(mockQuote)).toBeInTheDocument();
     expect(await screen.findByText(mockAuthor)).toBeInTheDocument();
   });
-  test("Borrar input de personaje con botón", async () => {
+  test("Clear input using button", async () => {
     render(<Cita />);
     const inputCharacter = screen.getByPlaceholderText("Ingresa el nombre del autor");
     await  userEvent.type(inputCharacter, "Homer");
@@ -45,5 +45,12 @@ describe("Pruebas en <Cita />", () => {
     await userEvent.click(buttonClear);
     expect(inputCharacter).toHaveValue("");
 
+  });
+  test("Return random quote successfully", async () => {
+    render(<Cita />);
+    const mockRandomQuote = "Nothing you say can upset us. We're the MTV generation.";
+    const buttonRandomQuote = screen.getByLabelText("Obtener cita aleatoria");
+    userEvent.click(buttonRandomQuote);
+    expect(await screen.findByText(mockRandomQuote)).toBeInTheDocument();
   });
 });
